@@ -24,9 +24,24 @@ export default function ProjectsExperience() {
 
   const items = tab === "projects" ? projectsData : experienceData;
 
+  // Framer Motion variants
+  const containerVariants = {
+    hidden: {},
+    visible: { 
+      transition: { 
+        staggerChildren: 0.15 
+      } 
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
     <section
-      id="projects" // Keep the ID so navbar scroll works
+      id="projects"
       className="min-h-screen px-6 py-24 transition-colors duration-500
                  bg-gradient-to-b from-gray-200 to-gray-300
                  dark:from-[#0A7075] dark:to-[#0C969C] text-gray-900 dark:text-[#E0F7FA]"
@@ -34,21 +49,13 @@ export default function ProjectsExperience() {
       {/* Tabs */}
       <div className="flex justify-center mb-16 space-x-6">
         <button
-          className={`px-4 py-2 rounded-full font-semibold ${
-            tab === "projects"
-              ? "bg-yellow-500 text-white"
-              : "bg-gray-300 dark:bg-[#274D60] dark:text-[#E0F7FA]"
-          }`}
+          className={`px-4 py-2 rounded-full font-semibold ${tab === "projects" ? "bg-yellow-500 text-white" : "bg-gray-300 dark:bg-[#274D60] dark:text-[#E0F7FA]"}`}
           onClick={() => setTab("projects")}
         >
           Projects
         </button>
         <button
-          className={`px-4 py-2 rounded-full font-semibold ${
-            tab === "experience"
-              ? "bg-yellow-500 text-white"
-              : "bg-gray-300 dark:bg-[#274D60] dark:text-[#E0F7FA]"
-          }`}
+          className={`px-4 py-2 rounded-full font-semibold ${tab === "experience" ? "bg-yellow-500 text-white" : "bg-gray-300 dark:bg-[#274D60] dark:text-[#E0F7FA]"}`}
           onClick={() => setTab("experience")}
         >
           Experience
@@ -56,16 +63,29 @@ export default function ProjectsExperience() {
       </div>
 
       {/* Section Title */}
-      <h2 className="text-5xl font-extrabold text-center mb-16 tracking-wide">
+      <motion.h2
+        className="text-5xl font-extrabold text-center mb-16 tracking-wide"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         {tab === "projects" ? "My Projects" : "My Experience"}
         <span className="block w-24 h-1 bg-yellow-500 mx-auto mt-4 rounded-full"></span>
-      </h2>
+      </motion.h2>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+      >
         {items.map((item) => (
           <motion.div
             key={item.id}
+            variants={cardVariants}
             whileHover={{ scale: 1.05, rotate: 1 }}
             className="relative cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform duration-500
                        bg-white dark:bg-[#274D60]"
@@ -77,7 +97,7 @@ export default function ProjectsExperience() {
             </div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Modal */}
       {selectedItem && (

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import ProfileImg from "../assets/profile.jpg";
 import { FaGithub } from "react-icons/fa";
+import { motion } from "framer-motion"; // <-- added
 
 export default function Home({ darkMode }) {
   const [displayedName, setDisplayedName] = useState("");
@@ -13,7 +14,6 @@ export default function Home({ darkMode }) {
     typingSoundRef.current.volume = 0.2;
     typingSoundRef.current.loop = true;
 
-    // Unlock audio (browser restriction)
     const unlockAudio = () => {
       typingSoundRef.current.play().then(() => {
         typingSoundRef.current.pause();
@@ -55,7 +55,6 @@ export default function Home({ darkMode }) {
         }
       }, 150);
 
-      // Play sound for 3s only
       if (typingSoundRef.current) {
         typingSoundRef.current.currentTime = 0;
         typingSoundRef.current.play().catch(() => {});
@@ -105,13 +104,12 @@ export default function Home({ darkMode }) {
         entries.forEach((entry) => {
           if (typingSoundRef.current) {
             if (entry.isIntersecting) {
-              // Resume if not playing
               if (typingSoundRef.current.paused) {
                 typingSoundRef.current.play().catch(() => {});
               }
-              fadeAudio(0.2, 1000); // fade in
+              fadeAudio(0.2, 1000);
             } else {
-              fadeAudio(0, 1000); // fade out
+              fadeAudio(0, 1000);
               setTimeout(() => {
                 if (typingSoundRef.current) typingSoundRef.current.pause();
               }, 1000);
@@ -119,12 +117,28 @@ export default function Home({ darkMode }) {
           }
         });
       },
-      { threshold: 0.3 } // trigger when 30% is visible
+      { threshold: 0.3 }
     );
 
     observer.observe(homeSection);
     return () => observer.disconnect();
   }, []);
+
+  // ✨ Motion variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  const buttonHover = {
+    hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0,0,0,0.3)" },
+  };
+
+  const imgHover = {
+    hover: { scale: 1.03, rotate: 1 },
+    initial: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
   return (
     <section
@@ -137,7 +151,13 @@ export default function Home({ darkMode }) {
                  text-gray-900 dark:text-[#E0F7FA] transition-colors duration-500"
     >
       {/* Left Side - Text */}
-      <div className="flex-1 text-center md:text-left space-y-6">
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }}
+        className="flex-1 text-center md:text-left space-y-6"
+      >
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
           Hi, I’m{" "}
           <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
@@ -157,42 +177,38 @@ export default function Home({ darkMode }) {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-          <a
-            href="https://github.com/Dareel1502"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium 
-                       hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition"
-          >
-            <FaGithub className="inline-block mr-2" />
-            View GitHub
-          </a>
-
-        {/* Resume - View */}
-             <a
-               href="/Ocao_Daryl Hans_Resume.pdf"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium 
-                          hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition"
-             >
-               View Resume
-             </a>
-
-
-          {/* Resume - Download */}
-          <a
-            href="/Ocao_Daryl Hans_Resume.pdf"
-            download="Daryl_Hans_Ocao_Resume.pdf"
-            className="border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition"
-          >
-            Download Resume
-          </a>
+          {["View GitHub", "View Resume", "Download Resume"].map((btn, i) => (
+            <motion.a
+              key={i}
+              whileHover="hover"
+              variants={buttonHover}
+              className={`border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium 
+                         hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition`}
+              href={
+                btn === "View GitHub" ? "https://github.com/Dareel1502" :
+                btn === "View Resume" ? "/Ocao_Daryl Hans_Resume.pdf" : 
+                "/Ocao_Daryl Hans_Resume.pdf"
+              }
+              target={btn === "View GitHub" || btn === "View Resume" ? "_blank" : "_self"}
+              download={btn === "Download Resume" ? "Daryl_Hans_Ocao_Resume.pdf" : undefined}
+              rel="noopener noreferrer"
+            >
+              {btn === "View GitHub" && <FaGithub className="inline-block mr-2" />}
+              {btn}
+            </motion.a>
+          ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Right Side - Image */}
-      <div className="flex-1 flex justify-center">
+      <motion.div
+        variants={imgHover}
+        initial="initial"
+        whileInView="visible"
+        whileHover="hover"
+        viewport={{ once: false, amount: 0.3 }}
+        className="flex-1 flex justify-center"
+      >
         <img
           src={ProfileImg}
           alt="Profile"
@@ -200,7 +216,7 @@ export default function Home({ darkMode }) {
                      rounded-full object-cover shadow-2xl border-4 border-yellow-500 
                      dark:border-[#6BA3BE] transition-colors duration-500"
         />
-      </div>
+      </motion.div>
     </section>
   );
 }
