@@ -158,22 +158,30 @@ export default function Home({ darkMode }) {
         viewport={{ once: false, amount: 0.3 }}
         className="flex-1 text-center md:text-left space-y-6"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-          Hi, I’m{" "}
-          <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
-            {displayedName}
-          </span>
-        </h1>
+        <div className="flex flex-col items-center md:items-start space-y-6 md:space-y-8 text-center md:text-left max-w-3xl mx-auto">
+  {/* Greeting */}
+  <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+    Hi, I’m{" "}
+    <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
+      {displayedName}
+    </span>
+  </h1>
 
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#C8E6E6] max-w-xl mx-auto md:mx-0">
-          A passionate <span className="font-semibold">Full Stack Developer</span> 
-          dedicated to crafting dynamic, user-friendly, and scalable web applications.
-        </p>
+  {/* Role / Title */}
+  <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-yellow-500 dark:text-yellow-400 leading-snug">
+    Aspiring Python Developer <span className="hidden md:inline">|</span><br className="md:hidden" /> Network and Cybersecurity Engineer
+  </p>
 
-        <p className="text-base sm:text-lg text-gray-600 dark:text-[#A5C9CA] max-w-2xl mx-auto md:mx-0">
-          I specialize in transforming ideas into digital solutions. My focus is on building 
-          intuitive interfaces and efficient, secure systems that deliver real impact.
-        </p>
+  {/* Short professional description */}
+  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#C8E6E6] leading-relaxed">
+    Passionate about building <span className="font-semibold text-gray-900 dark:text-[#E0F7FA]">secure, efficient, and scalable systems</span>. I specialize in automating processes, analyzing data, and strengthening network infrastructures to deliver practical solutions in IT and cybersecurity.
+  </p>
+
+  {/* Additional description */}
+  <p className="text-base sm:text-lg text-gray-600 dark:text-[#A5C9CA] leading-relaxed">
+    I transform ideas into digital solutions, focusing on intuitive interfaces and efficient, secure systems that create real-world impact.
+  </p>
+</div>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
