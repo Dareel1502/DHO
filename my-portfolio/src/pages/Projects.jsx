@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-// Projects Data
+
 const projectsData = [
   { id: 1, title: "Portfolio Website", image: "https://via.placeholder.com/300x200", description: "A personal portfolio website built with React and Tailwind CSS." },
   { id: 2, title: "E-commerce App", image: "https://via.placeholder.com/300x200", description: "An online store app built using React, Node.js, and MongoDB." },
@@ -11,7 +11,7 @@ const projectsData = [
   { id: 6, title: "Finance Tracker", image: "https://via.placeholder.com/300x200", description: "A finance tracker app to manage budgets and expenses." },
 ];
 
-// Experience Data
+
 const experienceData = [
   { id: 1, title: "IT Staff", image: "https://via.placeholder.com/300x200", description: "Handled IT support, maintained hardware and software systems.", start: "Jan 2018", end: "Dec 2019" },
   { id: 2, title: "IT Tech", image: "https://via.placeholder.com/300x200", description: "Provided technical support for networks, servers, and troubleshooting.", start: "Jan 2020", end: "Jun 2021" },
@@ -20,11 +20,11 @@ const experienceData = [
 
 export default function ProjectsExperience() {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [tab, setTab] = useState("projects"); // projects or experience
+  const [tab, setTab] = useState("projects"); 
 
   const items = tab === "projects" ? projectsData : experienceData;
 
-  // Framer Motion variants
+  
   const containerVariants = {
     hidden: {},
     visible: { 

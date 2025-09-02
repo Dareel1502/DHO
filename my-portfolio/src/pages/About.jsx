@@ -3,7 +3,7 @@ import { SiC, SiSqlite, SiJavascript, SiTailwindcss } from "react-icons/si";
 import { motion } from "framer-motion";
 
 export default function About() {
-  // Container for staggered animation
+  
   const container = {
     hidden: {},
     visible: {
@@ -13,7 +13,7 @@ export default function About() {
     },
   };
 
-  // Fade-up animation for each element
+  
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },

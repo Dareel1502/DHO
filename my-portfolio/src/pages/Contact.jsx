@@ -2,7 +2,7 @@ import { FaLinkedin, FaFacebook, FaInstagram, FaTelegram } from "react-icons/fa"
 import { motion } from "framer-motion";
 
 export default function Contact() {
-  // Framer Motion variants
+ 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },

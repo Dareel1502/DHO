@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import ProfileImg from "../assets/profile.jpg";
 import { FaGithub } from "react-icons/fa";
-import { motion } from "framer-motion"; // <-- added
+import { motion } from "framer-motion"; 
 
 export default function Home({ darkMode }) {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Daryl Hans Ocao";
   const typingSoundRef = useRef(null);
 
-  // 🔊 Setup typing sound
+
   useEffect(() => {
     typingSoundRef.current = new Audio("/typing.wav");
     typingSoundRef.current.volume = 0.2;
@@ -35,7 +35,7 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
-  // ⌨️ Typing animation + sync with sound (3s)
+ 
   useEffect(() => {
     let i = 0;
     let typingInterval;
@@ -73,7 +73,7 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
-  // 🎵 Fade audio in/out when section is visible
+  
   useEffect(() => {
     const fadeAudio = (targetVolume, duration) => {
       if (!typingSoundRef.current) return;
@@ -124,7 +124,7 @@ export default function Home({ darkMode }) {
     return () => observer.disconnect();
   }, []);
 
-  // ✨ Motion variants
+
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
