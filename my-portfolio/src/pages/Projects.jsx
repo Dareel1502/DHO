@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
+// Data arrays
 const projectsData = [
   { id: 1, title: "Portfolio Website", image: "https://via.placeholder.com/300x200", description: "A personal portfolio website built with React and Tailwind CSS." },
   { id: 2, title: "E-commerce App", image: "https://via.placeholder.com/300x200", description: "An online store app built using React, Node.js, and MongoDB." },
@@ -16,7 +17,41 @@ const experienceData = [
   { id: 3, title: "IT Specialist", image: "https://via.placeholder.com/300x200", description: "Managed IT projects, implemented new systems, and optimized workflows.", start: "Jul 2021", end: "Present" },
 ];
 
-export default function ProjectsExperience() {
+// ✅ Separated reusable card component (safe for hooks)
+function AnimatedCard({ item, onClick }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "0px 0px -100px 0px" });
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      variants={cardVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      whileHover={{ scale: 1.05, rotate: 1 }}
+      className="relative cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform duration-500
+                 bg-white dark:bg-[#274D60]"
+      onClick={() => onClick(item)}
+    >
+      <img
+        src={item.image}
+        alt={item.title}
+        className="w-full h-56 object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+        <h3 className="text-white text-xl font-semibold">{item.title}</h3>
+      </div>
+    </motion.div>
+  );
+}
+
+// ✅ Final Exported Component (unchanged name as requested)
+export default function Projects() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [tab, setTab] = useState("projects");
 
@@ -29,11 +64,6 @@ export default function ProjectsExperience() {
         staggerChildren: 0.15,
       },
     },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   return (
@@ -70,7 +100,7 @@ export default function ProjectsExperience() {
       {/* AnimatePresence for transitions */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={tab} // important to trigger re-render animation
+          key={tab}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -40 }}
@@ -95,29 +125,13 @@ export default function ProjectsExperience() {
             animate="visible"
           >
             {items.map((item) => (
-              <motion.div
-                key={item.id}
-                variants={cardVariants}
-                whileHover={{ scale: 1.05, rotate: 1 }}
-                className="relative cursor-pointer rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform duration-500
-                           bg-white dark:bg-[#274D60]"
-                onClick={() => setSelectedItem(item)}
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-56 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                  <h3 className="text-white text-xl font-semibold">{item.title}</h3>
-                </div>
-              </motion.div>
+              <AnimatedCard key={item.id} item={item} onClick={setSelectedItem} />
             ))}
           </motion.div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Modal (unchanged) */}
+      {/* Modal */}
       {selectedItem && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white dark:bg-[#032F30] rounded-2xl shadow-2xl p-8 w-11/12 md:w-2/3 lg:w-1/2 relative transition-colors duration-500">

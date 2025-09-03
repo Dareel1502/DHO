@@ -1,8 +1,11 @@
+import { useRef } from "react";
 import { FaLinkedin, FaFacebook, FaInstagram, FaTelegram } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 export default function Contact() {
- 
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "0px 0px -100px 0px" });
+
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
@@ -20,6 +23,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      ref={sectionRef}
       className="relative min-h-[60vh] flex flex-col items-center justify-center px-6 py-16 transition-colors duration-700 ease-in-out
                  bg-gradient-to-b from-gray-300 via-gray-300 to-gray-100
                  dark:from-[#0C969C] dark:via-[#0C969C] dark:to-[#133E45]
@@ -30,8 +34,7 @@ export default function Contact() {
         className="text-3xl md:text-4xl font-bold mb-4 text-center tracking-wide transition-colors duration-700"
         variants={fadeUp}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isInView ? "visible" : "hidden"}
       >
         Contact Me
       </motion.h2>
@@ -40,8 +43,7 @@ export default function Contact() {
         className="text-base md:text-lg mb-8 text-center text-gray-700 dark:text-[#B2DFDB] max-w-xl transition-colors duration-700"
         variants={fadeUp}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isInView ? "visible" : "hidden"}
       >
         I’m open to exciting opportunities. Let’s connect and build something amazing together!
       </motion.p>
@@ -51,8 +53,7 @@ export default function Contact() {
         className="flex space-x-6 mb-8"
         variants={container}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isInView ? "visible" : "hidden"}
       >
         {[
           { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/daryl-hans-ocao-b74774378/", hover: "hover:text-[#0077b5]" },
@@ -78,8 +79,7 @@ export default function Contact() {
         className="absolute bottom-4 text-center text-xs md:text-sm text-gray-600 dark:text-[#9BBEC8] transition-colors duration-700"
         variants={fadeUp}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate={isInView ? "visible" : "hidden"}
       >
         © {new Date().getFullYear()} All Rights Reserved | @darylhansocao <br />
         Unauthorized use or reproduction may result in copyright.
