@@ -39,7 +39,7 @@ const certificatesData = [
   {
     id: 4,
     title: "Research Festival Champion",
-    issuer: "Udemy",
+    issuer: "AcendensAsia",
     date: "May 2025",
     description:
       "Achieved first place at the Research Festival, demonstrating outstanding research innovation, collaboration, and presentation skills.",
