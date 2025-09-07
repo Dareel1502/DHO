@@ -4,7 +4,9 @@ import { FaMoon, FaSun, FaEnvelope, FaBars, FaTimes } from "react-icons/fa";
 export default function Navbar({ darkMode, setDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
-  const sections = ["home", "about", "projects", "contact"];
+
+  // All sections (Experience already included)
+  const sections = ["home", "experience", "projects", "about", "certificates", "contact"];
 
   const handleScrollTo = (e, section) => {
     e.preventDefault();
@@ -69,12 +71,10 @@ export default function Navbar({ darkMode, setDarkMode }) {
                   <a
                     href={`#${section}`}
                     onClick={(e) => handleScrollTo(e, section)}
-                    className={`relative px-2 py-2 transition duration-300 hover:text-yellow-500`}
+                    className="relative px-2 py-2 transition duration-300 hover:text-yellow-500"
                   >
                     {section.charAt(0).toUpperCase() + section.slice(1)}
-                    <span
-                      className={`absolute left-0 bottom-0 w-0 h-[2px] bg-yellow-500 transition-all duration-300 hover:w-full`}
-                    ></span>
+                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-yellow-500 transition-all duration-300 hover:w-full"></span>
                   </a>
                 </li>
               ))}
@@ -119,35 +119,34 @@ export default function Navbar({ darkMode, setDarkMode }) {
         )}
       </nav>
 
-     {/* Direct Message Button + Auto Chat */}
-<div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
-  {/* Chat bubble */}
-  {showBubble && (
-    <div
-      className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 rounded-2xl shadow-xl max-w-xs
-                 animate-[wiggle_0.5s_ease-in-out_infinite]"
-    >
-      <p className="font-semibold text-yellow-600">👋 Hey, I’m Daryl!</p>
-      <p className="text-sm">Aspiring Python Dev | IT Enthusiast</p>
-      <p className="text-xs mt-1 text-gray-500 dark:text-gray-400">
-        Click below to connect 📩
-      </p>
-    </div>
-  )}
+      {/* Direct Message Button + Auto Chat */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
+        {/* Chat bubble */}
+        {showBubble && (
+          <div
+            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-3 rounded-2xl shadow-xl max-w-xs
+                       animate-[wiggle_0.5s_ease-in-out_infinite]"
+          >
+            <p className="font-semibold text-yellow-600">👋 Hey, I’m Daryl!</p>
+            <p className="text-sm">Aspiring Software Engineer | IT Enthusiast</p>
+            <p className="text-xs mt-1 text-gray-500 dark:text-gray-400">
+              Click below to connect 📩
+            </p>
+          </div>
+        )}
 
-  {/* Message button */}
-  <a
-    href="https://mail.google.com/mail/?view=cm&fs=1&to=darylhansocao@gmail.com&su=For%20Application"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center justify-center sm:justify-start space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 min-w-[50px]"
-    title="Direct Message"
-  >
-    <FaEnvelope className="w-6 h-6 animate-bounce" />
-    <span className="font-semibold hidden sm:inline">Message Me</span>
-  </a>
-</div>
-
+        {/* Message button */}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=darylhansocao@gmail.com&su=For%20Application"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center sm:justify-start space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 min-w-[50px]"
+          title="Direct Message"
+        >
+          <FaEnvelope className="w-6 h-6 animate-bounce" />
+          <span className="font-semibold hidden sm:inline">Message me here</span>
+        </a>
+      </div>
 
       {/* Wiggle animation */}
       <style>
