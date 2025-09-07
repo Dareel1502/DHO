@@ -69,9 +69,9 @@ export default function About() {
             </h3>
             <p className="text-gray-700 dark:text-[#C8E6E6] text-lg leading-relaxed">
               I’m an <span className="font-bold">aspiring Software Engineer</span> with a strong curiosity for how things work and an eagerness to keep learning every day.  
-I enjoy exploring new technologies, solving problems, and turning ideas into real projects that people can actually use.  
-While I’m still growing in the field, I’m always excited to challenge myself, pick up new skills, and collaborate with others who share the same passion for tech.  
-For me, every step is an opportunity to improve and get closer to becoming the kind of developer who builds meaningful and impactful software.
+              I enjoy exploring new technologies, solving problems, and turning ideas into real projects that people can actually use.  
+              While I’m still growing in the field, I’m always excited to challenge myself, pick up new skills, and collaborate with others who share the same passion for tech.  
+              For me, every step is an opportunity to improve and get closer to becoming the kind of developer who builds meaningful and impactful software.
 
             </p>
           </motion.div>
