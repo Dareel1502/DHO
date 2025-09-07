@@ -1,3 +1,4 @@
+// Home.jsx
 import { useEffect, useState, useRef } from "react";
 import ProfileImg from "../assets/profile.jpg";
 import { FaGithub } from "react-icons/fa";
@@ -7,7 +8,6 @@ export default function Home({ darkMode }) {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Daryl Hans Ocao";
   const typingSoundRef = useRef(null);
-
 
   useEffect(() => {
     typingSoundRef.current = new Audio("/typing.wav");
@@ -35,7 +35,6 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
- 
   useEffect(() => {
     let i = 0;
     let typingInterval;
@@ -73,7 +72,6 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
-  
   useEffect(() => {
     const fadeAudio = (targetVolume, duration) => {
       if (!typingSoundRef.current) return;
@@ -124,7 +122,6 @@ export default function Home({ darkMode }) {
     return () => observer.disconnect();
   }, []);
 
-
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
@@ -159,29 +156,34 @@ export default function Home({ darkMode }) {
         className="flex-1 text-center md:text-left space-y-6"
       >
         <div className="flex flex-col items-center md:items-start space-y-6 md:space-y-8 text-center md:text-left max-w-3xl mx-auto">
-  {/* Greeting */}
-  <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-    Hi, I’m{" "}
-    <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
-      {displayedName}
-    </span>
-  </h1>
+          {/* Greeting */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+            Hi, I’m{" "}
+            <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
+              {displayedName}
+            </span>
+          </h1>
 
-  {/* Role / Title */}
-  <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-yellow-500 dark:text-yellow-400 leading-snug">
-    Aspiring Python Developer <span className="hidden md:inline">|</span><br className="md:hidden" /> Network and Cybersecurity Engineer
-  </p>
+          {/* Role / Title */}
+          <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-yellow-500 dark:text-yellow-400 leading-snug">
+            Aspiring Software Engineer <span className="hidden md:inline">|</span>
+            <br className="md:hidden" /> Network and Cybersecurity Engineer
+          </p>
 
-  {/* Short professional description */}
-  <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#C8E6E6] leading-relaxed">
-    Passionate about building <span className="font-semibold text-gray-900 dark:text-[#E0F7FA]">secure, efficient, and scalable systems</span>. I specialize in automating processes, analyzing data, and strengthening network infrastructures to deliver practical solutions in IT and cybersecurity.
-  </p>
+          {/* Short professional description */}
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#C8E6E6] leading-relaxed">
+            Passionate about building{" "}
+            <span className="font-semibold text-gray-900 dark:text-[#E0F7FA]">
+              secure, efficient, and scalable systems
+            </span>
+            . I specialize in automating processes, analyzing data, and strengthening network infrastructures to deliver practical solutions in IT and cybersecurity.
+          </p>
 
-  {/* Additional description */}
-  <p className="text-base sm:text-lg text-gray-600 dark:text-[#A5C9CA] leading-relaxed">
-    I transform ideas into digital solutions, focusing on intuitive interfaces and efficient, secure systems that create real-world impact.
-  </p>
-</div>
+          {/* Additional description */}
+          <p className="text-base sm:text-lg text-gray-600 dark:text-[#A5C9CA] leading-relaxed">
+            I transform ideas into digital solutions, focusing on intuitive interfaces and efficient, secure systems that create real-world impact.
+          </p>
+        </div>
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
@@ -193,12 +195,14 @@ export default function Home({ darkMode }) {
               className={`border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium 
                          hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition`}
               href={
-                btn === "View GitHub" ? "https://github.com/Dareel1502" :
-                btn === "View Resume" ? "/Ocao_Daryl Hans_Resume.pdf" : 
-                "/Ocao_Daryl Hans_Resume.pdf"
+                btn === "View GitHub"
+                  ? "https://github.com/Dareel1502"
+                  : btn === "View Resume"
+                  ? "/DarylHans_Ocao_CV.pdf"
+                  : "/DarylHans_Ocao_CV.pdf"
               }
               target={btn === "View GitHub" || btn === "View Resume" ? "_blank" : "_self"}
-              download={btn === "Download Resume" ? "Daryl_Hans_Ocao_Resume.pdf" : undefined}
+              download={btn === "Download Resume" ? "DarylHans_Ocao_CV.pdf" : undefined}
               rel="noopener noreferrer"
             >
               {btn === "View GitHub" && <FaGithub className="inline-block mr-2" />}
