@@ -1,24 +1,27 @@
-// Home.jsx
 import { useEffect, useState, useRef } from "react";
-import ProfileImg from "../assets/profile.jpg";
-import { FaGithub } from "react-icons/fa";
-import { motion } from "framer-motion"; 
+import { FaGithub, FaDownload, FaEye } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-export default function Home({ darkMode }) {
+export default function Home() {
   const [displayedName, setDisplayedName] = useState("");
   const fullName = "Daryl Hans Ocao";
   const typingSoundRef = useRef(null);
 
+  // Audio management
   useEffect(() => {
     typingSoundRef.current = new Audio("/typing.wav");
     typingSoundRef.current.volume = 0.2;
     typingSoundRef.current.loop = true;
 
     const unlockAudio = () => {
-      typingSoundRef.current.play().then(() => {
-        typingSoundRef.current.pause();
-        typingSoundRef.current.currentTime = 0;
-      }).catch(() => {});
+      typingSoundRef.current
+        .play()
+        .then(() => {
+          typingSoundRef.current.pause();
+          typingSoundRef.current.currentTime = 0;
+        })
+        .catch(() => {});
+
       window.removeEventListener("click", unlockAudio);
       window.removeEventListener("keydown", unlockAudio);
       window.removeEventListener("scroll", unlockAudio);
@@ -35,6 +38,7 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
+  // Typing animation
   useEffect(() => {
     let i = 0;
     let typingInterval;
@@ -72,9 +76,11 @@ export default function Home({ darkMode }) {
     };
   }, []);
 
+  // Intersection observer for audio control
   useEffect(() => {
     const fadeAudio = (targetVolume, duration) => {
       if (!typingSoundRef.current) return;
+
       const step = 50;
       const current = typingSoundRef.current.volume;
       const diff = targetVolume - current;
@@ -122,113 +128,160 @@ export default function Home({ darkMode }) {
     return () => observer.disconnect();
   }, []);
 
+  // Animation variants
   const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const buttonHover = {
-    hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0,0,0,0.3)" },
+    hover: {
+      scale: 1.05,
+      transition: { type: "spring", stiffness: 300 },
+    },
   };
 
-  const imgHover = {
-    hover: { scale: 1.03, rotate: 1 },
-    initial: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-  };
+  // Data
+  const buttonData = [
+    {
+      label: "View GitHub",
+      icon: <FaGithub className="w-5 h-5" />,
+      href: "https://github.com/Dareel1502",
+      target: "_blank",
+    },
+    {
+      label: "View Resume",
+      icon: <FaEye className="w-5 h-5" />,
+      href: "/DarylHans_Ocao_CV.pdf",
+      target: "_blank",
+    },
+    {
+      label: "Download CV",
+      icon: <FaDownload className="w-5 h-5" />,
+      href: "/DarylHans_Ocao_CV.pdf",
+      target: "_self",
+      download: "DarylHans_Ocao_CV.pdf",
+    },
+  ];
+
+  const expertiseItems = [
+    "GoHighLevel Automation",
+    "CRM System Optimization",
+    "Workflow Automation",
+    "Business Process Enhancement",
+  ];
 
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center gap-12 
-                 px-6 md:px-16 lg:px-28 
-                 pt-24 md:pt-32
-                 bg-gradient-to-b from-white to-gray-100 
-                 dark:from-[#031716] dark:to-[#032F30] 
-                 text-gray-900 dark:text-[#E0F7FA] transition-colors duration-500"
+      className="min-h-screen flex items-center justify-center bg-white"
     >
-      {/* Left Side - Text */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
-        className="flex-1 text-center md:text-left space-y-6"
-      >
-        <div className="flex flex-col items-center md:items-start space-y-6 md:space-y-8 text-center md:text-left max-w-3xl mx-auto">
-          {/* Greeting */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-            Hi, I’m{" "}
-            <span className="text-yellow-500 border-r-2 border-yellow-500 pr-1 animate-pulse">
-              {displayedName}
-            </span>
-          </h1>
+      <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-24">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          className="text-center space-y-12"
+        >
+          {/* Header Section */}
+          <div className="space-y-8">
+            {/* Name with Typing Animation */}
+            <div className="space-y-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900">
+                <span className="text-blue-600 relative inline-block">
+                  {displayedName}
+                  <span className="absolute -bottom-2 left-0 w-full h-1 bg-blue-600 animate-pulse" />
+                </span>
+              </h1>
 
-          {/* Role / Title */}
-          <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-yellow-500 dark:text-yellow-400 leading-snug">
-            Aspiring Software Engineer <span className="hidden md:inline">|</span>
-            <br className="md:hidden" /> Network and Cybersecurity Engineer
-          </p>
+              {/* Title */}
+              <div className="space-y-3">
+                <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700">
+                  Business Automation Specialist & GoHighLevel VA
+                </p>
+                <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto" />
+              </div>
+            </div>
 
-          {/* Short professional description */}
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-[#C8E6E6] leading-relaxed">
-            Passionate about building{" "}
-            <span className="font-semibold text-gray-900 dark:text-[#E0F7FA]">
-              secure, efficient, and scalable systems
-            </span>
-            . I specialize in automating processes, analyzing data, and strengthening network infrastructures to deliver practical solutions in IT and cybersecurity.
-          </p>
+            {/* Description */}
+            <div className="max-w-2xl mx-auto space-y-6">
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                I help businesses{" "}
+                <span className="font-semibold text-gray-800">
+                  transform manual processes into automated systems
+                </span>{" "}
+                using GoHighLevel and custom automation solutions.
+              </p>
 
-          {/* Additional description */}
-          <p className="text-base sm:text-lg text-gray-600 dark:text-[#A5C9CA] leading-relaxed">
-            I transform ideas into digital solutions, focusing on intuitive interfaces and efficient, secure systems that create real-world impact.
-          </p>
-        </div>
+              <p className="text-base text-gray-500 leading-relaxed">
+                Specializing in workflow optimization that enhances
+                productivity, reduces operational costs, and accelerates
+                business growth through intelligent automation strategies.
+              </p>
+            </div>
+          </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-          {["View GitHub", "View Resume", "Download Resume"].map((btn, i) => (
-            <motion.a
-              key={i}
-              whileHover="hover"
-              variants={buttonHover}
-              className={`border border-yellow-500 text-yellow-500 dark:text-yellow-400 px-6 py-3 rounded-lg font-medium 
-                         hover:bg-yellow-500 hover:text-white dark:hover:text-[#031716] transition`}
-              href={
-                btn === "View GitHub"
-                  ? "https://github.com/Dareel1502"
-                  : btn === "View Resume"
-                  ? "/DarylHans_Ocao_CV.pdf"
-                  : "/DarylHans_Ocao_CV.pdf"
-              }
-              target={btn === "View GitHub" || btn === "View Resume" ? "_blank" : "_self"}
-              download={btn === "Download Resume" ? "DarylHans_Ocao_CV.pdf" : undefined}
-              rel="noopener noreferrer"
-            >
-              {btn === "View GitHub" && <FaGithub className="inline-block mr-2" />}
-              {btn}
-            </motion.a>
-          ))}
-        </div>
-      </motion.div>
+          {/* Expertise Highlights */}
+          <div className="max-w-md mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {expertiseItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 text-sm text-gray-600"
+                >
+                  <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      {/* Right Side - Image */}
-      <motion.div
-        variants={imgHover}
-        initial="initial"
-        whileInView="visible"
-        whileHover="hover"
-        viewport={{ once: false, amount: 0.3 }}
-        className="flex-1 flex justify-center"
-      >
-        <img
-          src={ProfileImg}
-          alt="Profile"
-          className="w-56 sm:w-64 md:w-80 lg:w-96 h-56 sm:h-64 md:h-80 lg:h-96 
-                     rounded-full object-cover shadow-2xl border-4 border-yellow-500 
-                     dark:border-[#6BA3BE] transition-colors duration-500"
-        />
-      </motion.div>
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {buttonData.map((button, index) => (
+              <motion.a
+                key={index}
+                whileHover="hover"
+                variants={buttonHover}
+                className={`
+                  flex items-center gap-3 px-6 py-3 rounded-lg font-medium transition-all duration-300
+                  ${
+                    index === 0
+                      ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg"
+                      : "border-2 border-gray-200 text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50"
+                  }
+                `}
+                href={button.href}
+                target={button.target}
+                download={button.download}
+                rel="noopener noreferrer"
+              >
+                {button.icon}
+                {button.label}
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <motion.div
+            variants={fadeUp}
+            className="max-w-md mx-auto text-center space-y-3"
+          >
+            <p className="text-sm text-gray-500">
+              Ready to automate your business processes?
+            </p>
+            <div className="flex items-center justify-center gap-2 text-blue-600 font-semibold text-sm">
+              <span>Explore my automation solutions</span>
+              <span className="animate-bounce">↓</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
