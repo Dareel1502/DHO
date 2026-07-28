@@ -50,12 +50,15 @@ export default function ProjectModal({ project, onClose }) {
           <p className="text-muted leading-relaxed mb-6">
             {project.description}
           </p>
-          href={project.link}
-          target="_blank" rel="noreferrer" className="inline-flex items-center
-          gap-2 px-5 py-2.5 rounded-full bg-text text-bg font-medium text-sm
-          hover:bg-accent transition-colors"
-          {project.category === "Website" ? "Visit Site" : "View Project"}
-          <ArrowUpRight size={16} />
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-text text-bg font-medium text-sm hover:bg-accent transition-colors"
+          >
+            {project.category === "Website" ? "Visit Site" : "View Project"}
+            <ArrowUpRight size={16} />
+          </a>
         </div>
       </div>
     </div>
