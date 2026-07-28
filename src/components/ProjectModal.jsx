@@ -1,18 +1,7 @@
-import { useEffect } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 import ProtectedImage from "./ProtectedImage";
-import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
 
 export default function ProjectModal({ project, onClose }) {
-  useLockBodyScroll(!!project);
-
-  useEffect(() => {
-    if (!project) return;
-    const close = () => onClose();
-    window.addEventListener("modal-escape", close);
-    return () => window.removeEventListener("modal-escape", close);
-  }, [project, onClose]);
-
   if (!project) return null;
 
   return (

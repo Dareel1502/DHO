@@ -1,18 +1,7 @@
-import { useEffect } from "react";
 import { Award, X } from "lucide-react";
 import ProtectedImage from "./ProtectedImage";
-import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
 
 export default function CertificateModal({ certificate, onClose }) {
-  useLockBodyScroll(!!certificate);
-
-  useEffect(() => {
-    if (!certificate) return;
-    const close = () => onClose();
-    window.addEventListener("modal-escape", close);
-    return () => window.removeEventListener("modal-escape", close);
-  }, [certificate, onClose]);
-
   if (!certificate) return null;
 
   return (
