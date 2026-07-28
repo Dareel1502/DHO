@@ -40,7 +40,7 @@ export const profile = {
   telegram: "https://web.telegram.org/k/",
   // Get a free key at https://web3forms.com (takes ~1 minute, no account needed)
   // Paste it below to make the contact form actually deliver to your email.
-  web3formsAccessKey: "298d49f7-a221-4cc9-88e2-97c266620407",
+  web3formsAccessKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
   // Place Daryl_Hans_Ocao_Resume.pdf (renamed resume.pdf) inside the /public folder
   // so this path resolves correctly — no import needed for files in /public.
   resumeUrl: "/resume.pdf",
