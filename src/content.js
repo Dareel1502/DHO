@@ -38,6 +38,8 @@ export const profile = {
   facebook: "https://www.facebook.com/DarylHansOcao",
   instagram: "https://www.instagram.com/dryl.hns/",
   telegram: "https://web.telegram.org/k/",
+  // Calendly booking link — used by the "Book a call" button on the hero section
+  calendlyUrl: "https://calendly.com/psync15/30min",
   // Get a free key at https://web3forms.com (takes ~1 minute, no account needed)
   // Paste it below to make the contact form actually deliver to your email.
   web3formsAccessKey: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,

@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, CalendarDays } from "lucide-react";
 import { profile, capabilities } from "../content";
 import { useContactModal } from "../context/ContactModalContext";
 
@@ -40,10 +40,13 @@ export default function Hero() {
 
       <div className="flex flex-wrap items-center gap-4 text-sm">
         <a
-          href="#work"
-          className="px-5 py-2.5 rounded-full bg-text text-bg font-medium hover:bg-accent transition-colors"
+          href={profile.calendlyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-text text-bg font-medium hover:bg-accent transition-colors"
         >
-          View work
+          <CalendarDays size={15} />
+          Book a call
         </a>
         <button
           type="button"
